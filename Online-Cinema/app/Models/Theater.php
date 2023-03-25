@@ -11,6 +11,16 @@ class Theater extends Model
 
     public function showTimes()
     {
-        return $this->belongsToMany(ShowTime::class)->withPivot('movie_id');
+        return $this->belongsToMany(ShowTime::class, 'theater_show_time', "show_time_id")->withPivot('movie_id');
     }
+
+    public function seats()
+    {
+        return $this->hasMany(Seat::class);
+    }
+
+//    public function tickets()
+//    {
+//        return $this->hasMany(Ticket::class);
+//    }
 }

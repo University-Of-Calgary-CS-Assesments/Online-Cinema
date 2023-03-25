@@ -11,11 +11,16 @@ class ShowTime extends Model
 
     public function theaters()
     {
-        return $this->belongsToMany(Theater::class)->withPivot('movie_id');
+        return $this->belongsToMany(Theater::class, 'theater_show_time')->withPivot('movie_id');
     }
 
-    public function movie()
+    public function movies()
     {
-        return $this->belongsTo(Movie::class);
+        return $this->belongsToMany(Movie::class, 'theater_show_time', 'show_time_id', 'movie_id')->withPivot('theater_id');
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
     }
 }

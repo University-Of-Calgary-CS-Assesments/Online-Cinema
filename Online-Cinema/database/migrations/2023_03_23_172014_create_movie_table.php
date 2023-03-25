@@ -22,7 +22,7 @@ class CreateMovieTable extends Migration
                 $table->integer("startDate");
                 $table->integer("endDate");
                 $table->string("director");
-                $table->integer("writer");
+                $table->string("writer");
                 $table->string("studio");
                 $table->integer("price");
                 $table->integer("rating");

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCuponsTable extends Migration
+class CreateCustomerMovieTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateCuponsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cupons', function (Blueprint $table) {
+        Schema::create('customer_movie', function (Blueprint $table) {
             $table->id();
-            $table->integer("uniqueId");
-            $table->integer("expiryDate");
-            $table->integer("amount");
-            $table->unsignedBigInteger("costumer_id");
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('movie_id');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('movie_id')->references('id')->on('movie')->onDelete('cascade');
         });
     }
 
@@ -32,6 +31,6 @@ class CreateCuponsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cupons');
+        Schema::dropIfExists('customer_movie');
     }
 }
