@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,38 +45,21 @@ Route::get('/dashboard', function () {
 
 Route::get('/movie-search', function () {
     return view('movie-search');
-});
+})->name('movie.search.page');
 
-Route::get('/search', function(Request $request) {
+Route::post('/movie-search', function (Request $request){
     $query = $request->input('query');
-    $movies = Movie::where('title', 'like', '%'.$query.'%')->get();
+    $movies = \App\Models\Movie::where('title', 'like', '%'.$query.'%')->get();
 
-    return response()->json($movies);
-});
+    return view('movie-search', compact('movies'));
+})->name('movies.search.action');
+
+Route::get('/movie-page/{movieId}', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');
+
+//Route::get('/movie-page', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');
 
 
-//Route::get('/', function () {
-//    if (Auth::check()) {
-//        return redirect()->route('dashboard');
-//    }
-//
-//    return Inertia::render('home', [
-//        'canLogin' => Route::has('login'),
-//        'canRegister' => Route::has('register'),
-//        'laravelVersion' => Application::VERSION,
-//        'phpVersion' => PHP_VERSION,
-//    ]);
-//});
-//
-//Route::middleware([
-//    'auth:sanctum',
-//    config('jetstream.auth_session'),
-//    'verified',
-//])->group(function () {
-//    Route::get('/dashboard', function () {
-//        return Inertia::render('Dashboard');
-//    })->name('dashboard');
-//});
+
 
 
 
