@@ -20,7 +20,7 @@ class CreateSubscriberFavoriteMovie extends Migration
             $table->timestamps();
 
             $table->foreign('subscriber_id')->references('id')->on('subscribers')->onDelete('cascade');
-            $table->foreign('movie_id')->references('id')->on('movie')->onDelete('cascade');
+            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
         });
     }
 

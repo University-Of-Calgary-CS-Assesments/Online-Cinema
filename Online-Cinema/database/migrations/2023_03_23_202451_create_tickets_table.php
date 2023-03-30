@@ -28,7 +28,7 @@ class CreateTicketsTable extends Migration
             $table->timestamps();
 
             $table->foreign('seat_id')->references('id')->on('seats')->onDelete('cascade');
-            $table->foreign('movie_id')->references('id')->on('movie')->onDelete('cascade');
+            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
             $table->foreign('show_time_id')->references('id')->on('show_times');
 //            $table->foreign('theater_id')->references('id')->on('theaters')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');

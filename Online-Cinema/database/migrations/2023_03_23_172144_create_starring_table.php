@@ -19,7 +19,7 @@ class CreateStarringTable extends Migration
             $table->unsignedBigInteger("movie_id");
             $table->timestamps();
 
-            $table->foreign("movie_id")->references("id")->on("movie")->onDelete("cascade");
+            $table->foreign("movie_id")->references("id")->on("movies")->onDelete("cascade");
         });
     }
 

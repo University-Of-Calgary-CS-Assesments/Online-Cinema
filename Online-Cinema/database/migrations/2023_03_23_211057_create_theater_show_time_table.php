@@ -23,7 +23,7 @@ class CreateTheaterShowTimeTable extends Migration
 
             $table->foreign('theater_id')->references('id')->on('theaters')->onDelete('cascade');
             $table->foreign('show_time_id')->references('id')->on('show_times')->onDelete('cascade');
-            $table->foreign('movie_id')->references('id')->on('movie')->onDelete('cascade');
+            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
         });
     }
 

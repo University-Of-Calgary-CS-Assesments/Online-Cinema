@@ -13,16 +13,19 @@ class CreateSeatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('seats', function (Blueprint $table) {
-            $table->id();
-            $table->string("seatId");
-            $table->boolean("available")->nullable();
-            $table->boolean("accessible")->nullable();
-            $table->integer("theater_id");
-            $table->timestamps();
+        if (!Schema::hasTable('seats')){
+            Schema::create('seats', function (Blueprint $table) {
+                $table->id();
+                $table->string("seatId");
+                $table->boolean("available")->nullable();
+                $table->boolean("accessible")->nullable();
+                $table->unsignedBigInteger("theater_id");
+                $table->timestamps();
 
-            $table->foreign("theater_id")->references("id")->on("theaters")->onDelete("cascade");
-        });
+                $table->foreign("theater_id")->references("id")->on("theaters")->onDelete("cascade");
+            });
+        }
+
     }
 
     /**
