@@ -13,9 +13,14 @@ class Movie extends Model
         return $this->hasMany(Starring::class);
     }
 
-    public function showTimes()
+//    public function showTimes()
+//    {
+//        return $this->belongsToMany(ShowTime::class, 'theater_show_time', 'movie_id', 'show_time_id')->withPivot('theater_id');
+//    }
+
+    public function theaters()
     {
-        return $this->belongsToMany(ShowTime::class, 'theater_show_time', 'movie_id', 'show_time_id')->withPivot('theater_id');
+        return $this->belongsToMany(Theater::class, 'theater_show_time', 'movie_id', 'theater_id')->withPivot('show_time_id');
     }
 
     public function tickets()

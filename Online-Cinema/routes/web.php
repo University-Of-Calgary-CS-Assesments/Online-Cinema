@@ -35,14 +35,6 @@ Route::get('/home', function () {
 });
 
 
-Route::get('/dashboard', function () {
-    if (Auth::check()) {
-        return view('dashboard');
-    } else{
-        return view('home');
-    }
-});
-
 Route::get('/movie-search', function () {
     return view('movie-search');
 })->name('movie.search.page');
@@ -54,7 +46,19 @@ Route::post('/movie-search', function (Request $request){
     return view('movie-search', compact('movies'));
 })->name('movies.search.action');
 
-Route::get('/movie-page/{movieId}', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/movie-page/{movieId}', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    });
+
+    Route::get('/ticket-page', function () {
+        return view('ticket-page');
+    });
+});
 
 //Route::get('/movie-page', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');
 
