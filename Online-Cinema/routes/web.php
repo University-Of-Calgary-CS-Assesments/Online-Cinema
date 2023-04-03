@@ -46,18 +46,16 @@ Route::post('/movie-search', function (Request $request){
     return view('movie-search', compact('movies'));
 })->name('movies.search.action');
 
+Route::get('/movie-page/{movieId}', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');
+
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/movie-page/{movieId}', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');
-
     Route::get('/dashboard', function () {
         return view('dashboard');
-    });
+    })->name('dashboard.page');
 
-    Route::get('/ticket-page', function () {
-        return view('ticket-page');
-    });
+    Route::get('/ticket-page/{movieId}', [\App\Http\Controllers\ControllerTicket::class, 'page'])->name('ticket.selection.page');
 });
 
 //Route::get('/movie-page', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');

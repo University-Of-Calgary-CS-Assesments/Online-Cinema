@@ -18,4 +18,14 @@ class Seat extends Model
     {
         return $this->hasMany(Ticket::class);
     }
+
+    public function showTimes()
+    {
+        return $this->belongsToMany(ShowTime::class, 'reservations');
+    }
+
+    public function isReserved($showTime)
+    {
+        return $this->showTimes()->where('show_time_id', $showTime)->exists();
+    }
 }

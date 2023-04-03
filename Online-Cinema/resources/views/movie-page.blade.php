@@ -51,10 +51,12 @@
 {{--                        <option value="option3">Option 3</option>--}}
 {{--                    </select>--}}
 
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                        <i class="bi-cart-fill me-1"></i>
-                        Get the ticket
-                    </button>
+                    <a href="{{route('ticket.selection.page', ['movieId' => $movie->id])}}">
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <i class="bi-cart-fill me-1"></i>
+                            Get ticket
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
