@@ -303,15 +303,15 @@
 
                                 <form method="POST" action="{{route('checkout.page')}}" class="checkout-form">
                                     @csrf
-                                    <input type="hidden" name="theater" value="{{ $item['theater'] }}">
-                                    <input type="hidden" name="showTime" value="{{ $item['showTime'] }}">
-                                    <input type="hidden" name="movie" value="{{ $movie }}">
+                                    <input type="hidden" name="theater" value="{{ $item['theater']->id }}">
+                                    <input type="hidden" name="showTime" value="{{ $item['showTime']->id }}">
+                                    <input type="hidden" name="movie" value="{{ $movie->id }}">
                                     <td>
                                         <div class="r-no">
                                             @if(sizeof($item['seats']) != 0)
                                                 <select class="form-select me-3" id="inputOption" name="seat">
                                                     @foreach($item['seats'] as $seat)
-                                                        <option value="{{$seat}}">{{$seat->seatId}}</option>
+                                                        <option value="{{$seat->id}}">{{$seat->seatId}}</option>
                                                     @endforeach
                                                 </select>
                                             @else

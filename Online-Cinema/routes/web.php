@@ -58,6 +58,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ticket-page/{movieId}', [\App\Http\Controllers\ControllerTicket::class, 'page'])->name('ticket.selection.page');
 
     Route::post('/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'checkOutPage'])->name('checkout.page');
+
+    Route::post('/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'coupon'])->name('checkout.coupon');
 });
 
 //Route::get('/movie-page', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');
