@@ -56,6 +56,8 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard.page');
 
     Route::get('/ticket-page/{movieId}', [\App\Http\Controllers\ControllerTicket::class, 'page'])->name('ticket.selection.page');
+
+    Route::post('/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'checkOutPage'])->name('checkout.page');
 });
 
 //Route::get('/movie-page', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');

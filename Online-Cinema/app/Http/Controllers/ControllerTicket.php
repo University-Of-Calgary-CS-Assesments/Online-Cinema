@@ -26,9 +26,8 @@ class ControllerTicket extends Controller
 
 
             $schedule[] = array(
-                'theater' => $theater->name,
-                'showTime' => $showTime->showTime,
-                'address' => $theater->address,
+                'theater' => $theater,
+                'showTime' => $showTime,
                 'seats' => $seats
             );
         }

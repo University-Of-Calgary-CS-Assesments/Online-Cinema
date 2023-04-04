@@ -278,51 +278,58 @@
                                 <tbody>
 
                                 @foreach($schedule as $item)
+
                                 <tr class="inner-box">
                                     <th scope="row">
                                         <div class="event-date">
-                                            <span>{{\Carbon\Carbon::createFromTimestamp($item['showTime'])->format('d')}}</span>
-                                            <p>{{\Carbon\Carbon::createFromTimestamp($item['showTime'])->format('F')}}</p>
+                                            <span>{{\Carbon\Carbon::createFromTimestamp($item['showTime']->showTime)->format('d')}}</span>
+                                            <p>{{\Carbon\Carbon::createFromTimestamp($item['showTime']->showTime)->format('F')}}</p>
                                             <p style="font-weight: bold; margin-top: 10px;">
-                                                {{\Carbon\Carbon::createFromTimestamp($item['showTime'])->format('h A')}}
+                                                {{\Carbon\Carbon::createFromTimestamp($item['showTime']->showTime)->format('h A')}}
                                             </p>
                                         </div>
                                     </th>
                                     <td>
                                         <div class="event-img">
                                             <img src="{{ asset('pictures/cinema2.png') }}" alt="" />
-                                            <p style="font-weight: bold; margin-top: 10px;">{{ $item['theater'] }}</p>
+                                            <p style="font-weight: bold; margin-top: 10px;">{{ $item['theater']->name }}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="event-wrap">
-                                            <h3><a href="{{url("https://www.google.com/maps?q={$item['address']}")}}" target="_blank">{{$item['address']}}</a></h3>
+                                            <h3><a href="{{url("https://www.google.com/maps?q={$item['theater']->address}")}}" target="_blank">{{$item['theater']->address}}</a></h3>
                                         </div>
                                     </td>
+
+                                <form method="POST" action="{{route('checkout.page')}}" class="checkout-form">
+                                    @csrf
+                                    <input type="hidden" name="theater" value="{{ $item['theater'] }}">
+                                    <input type="hidden" name="showTime" value="{{ $item['showTime'] }}">
+                                    <input type="hidden" name="movie" value="{{ $movie }}">
                                     <td>
                                         <div class="r-no">
-
                                             @if(sizeof($item['seats']) != 0)
-                                            <select class="form-select me-3" id="inputOption">--}}
-                                                @foreach($item['seats'] as $seat)
-                                                    <option value="{{print_r($seat->seatId)}}">{{print_r($seat->seatId)}}</option>
-                                                @endforeach
-                                            </select>
+                                                <select class="form-select me-3" id="inputOption" name="seat">
+                                                    @foreach($item['seats'] as $seat)
+                                                        <option value="{{$seat}}">{{$seat->seatId}}</option>
+                                                    @endforeach
+                                                </select>
                                             @else
                                                 <p style="font-weight: bold; margin-top: 10px; color: red;">FULL!</p>
                                             @endif
-
                                         </div>
                                     </td>
                                     <td>
                                         @if(sizeof($item['seats']) != 0)
-                                        <div class="primary-btn">
-                                            <a class="btn btn-primary" href="#">Check-out</a>
-                                        </div>
+                                            <div class="primary-btn">
+                                                <button class="btn btn-primary checkout-btn" type="submit">Check-out</button>
+                                            </div>
                                         @endif
                                     </td>
+                                </form>
                                 </tr>
                                 @endforeach
+
                                 </tbody>
                             </table>
                         </div>
