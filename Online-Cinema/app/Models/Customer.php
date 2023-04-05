@@ -11,6 +11,10 @@ class Customer extends Model
 
     protected $fillable = [
         'is_subscriber',
+        'user_id',
+        'fullName',
+        'address',
+        'creditCardNo'
     ];
 
     public function user()

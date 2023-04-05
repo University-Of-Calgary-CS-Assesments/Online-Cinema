@@ -23,21 +23,30 @@
 
                 @if (Route::has('login'))
                     @auth
-                        <li class="nav-item">
-                            <a href="{{url('/dashboard')}}" class="nav-link">Dashboard</a>
-                        </li>
+                        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{{url('/dashboard')}}">Dashboard</a>
+                                    </li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('logout') }}" class="nav-link"
-                               onclick="event.preventDefault();
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li>
+                                        <a href="{{ route('logout') }}" class="dropdown-item"
+                                           onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
+                                            {{ __('Logout') }}
+                                        </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
 
                     @else
                         <li class="nav-item">
@@ -50,8 +59,8 @@
                         @endif
                     @endauth
                 @endif
-
             </ul>
         </div>
     </div>
+
 </nav>
