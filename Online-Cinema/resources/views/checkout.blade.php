@@ -77,7 +77,7 @@
                         </div>
 
 
-                        {{--payment--}}
+                        payment
                         <div class=" p-5 bg-gray-800 rounded overflow-visible">
                             <span class="text-xl font-medium text-gray-100 block pb-3">Card Details</span>
                             <span class="text-xs text-gray-400 ">Card Type</span>
@@ -121,12 +121,12 @@
                                     <input type="text" class="focus:outline-none w-full h-6 bg-gray-800 text-white placeholder-gray-300 text-sm border-b border-gray-600 py-4" placeholder="XXX">
                                 </div>
                             </div>
-                            <a href="">
+                            <a href="{{route('checkout.payment')}}">
                                 <button class="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
                                     Pay
                                 </button>
                             </a>
-                            <a href="">
+                            <a href="{{route('checkout.cancel')}}">
                                 <button class="h-12 w-full bg-red-500 rounded focus:outline-none text-white hover:bg-red-600">
                                     Cancel
                                 </button>

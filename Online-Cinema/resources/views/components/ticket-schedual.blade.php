@@ -301,7 +301,7 @@
                                         </div>
                                     </td>
 
-                                <form method="POST" action="{{route('checkout.page')}}" class="checkout-form">
+                                <form method="POST" action="{{route('checkout.show')}}" class="checkout-form">
                                     @csrf
                                     <input type="hidden" name="theater" value="{{ $item['theater']->id }}">
                                     <input type="hidden" name="showTime" value="{{ $item['showTime']->id }}">

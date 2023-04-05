@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TicketEmail;
 use App\Models\Cupon;
 use App\Models\Movie;
+use App\Models\Reservation;
 use App\Models\Seat;
 use App\Models\ShowTime;
 use App\Models\Theater;
+use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ControllerCheckout extends Controller
 {
@@ -36,12 +42,44 @@ class ControllerCheckout extends Controller
         return view('checkout');
     }
 
+    public function showCheckoutPage(){
+        return view('checkout');
+    }
+
     public function cancel(){
         session_destroy();
+        return redirect()->route('movie.search.page');
     }
 
     public function payment(){
+        // check payment information
 
+        if (session()->has('seat') && session()->has('theater') && session()->has('showTime') && session()->has('movie') && session()->has('price')){
+            $ticket = new Ticket();
+            $ticket->ticketId = mt_rand(10000000, 99999999);
+            $ticket->customer_id = Auth::user()->id;
+            $ticket->movie_id = session('movie')->id;
+            $ticket->show_time_id = session('showTime')->id;
+            $ticket->seat_id = session('seat')->id;
+            $ticket->purchaseTime = Carbon::now()->timestamp;
+            $ticket->price = session('price');
+            $ticket->assignedEmail = Auth::user()->email;
+            $ticket->status = 'purchased';
+
+            $ticket->save();
+
+            $reservation = new Reservation();
+            $reservation->show_time_id = session('showTime')->id;
+            $reservation->seat_id = session('seat')->id;
+            $reservation->save();
+
+            Mail::to(Auth::user()->email)->send(new TicketEmail());
+
+            return redirect()->route('ticket.success.page');
+
+        } else{
+            return redirect()->route('home');
+        }
     }
 
     public function coupon(Request $request){

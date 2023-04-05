@@ -42,26 +42,8 @@ class ControllerTicket extends Controller
         return view('ticket-page', compact('movie', 'schedule'));
     }
 
-    public function ticketPurchasing(){
-        if (session()->has('seat') && session()->has('theater') && session()->has('showTime') && session()->has('movie') && session()->has('price')){
-            $ticket = new Ticket();
-            $ticket->ticketId = mt_rand(10000000, 99999999);
-            $ticket->customer_id = Auth::user()->id;
-            $ticket->movie_id = session('movie')->id;
-            $ticket->show_time_id = session('showTime')->id;
-            $ticket->seat_id = session('seat')->id;
-            $ticket->purchaseTime = Carbon::now()->timestamp;
-            $ticket->price = session('price');
-            $ticket->assignedEmail = Auth::user()->email;
-            $ticket->status = 'purchased';
+    public function ticketSuccess(){
 
-            $ticket->save();
-
-        } else{
-
-        }
-
-        Mail::to('cariji5524@cyclesat.com')->send(new TicketEmail());
 
         return view('ticket-success');
     }

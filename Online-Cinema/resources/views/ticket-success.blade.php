@@ -38,7 +38,9 @@
             <div class="text-center">
                 <h1>Thank You !</h1>
                 <p>We've send the ticket to your email.</p>
-                <button class="btn btn-outline-success">Back Home</button>
+                <a href="{{route('home')}}">
+                    <button class="btn btn-outline-success">Back Home</button>
+                </a>
             </div>
         </div>
     </div>
