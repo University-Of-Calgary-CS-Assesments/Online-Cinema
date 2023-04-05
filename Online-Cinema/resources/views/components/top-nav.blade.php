@@ -1,5 +1,13 @@
 <!-- Responsive navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+<style>
+    .custom-navbar {
+        z-index: 2000; /* Adjust this value to ensure it is higher than the sidebar's z-index */
+        position: relative; /* You may need to set the position property for the z-index to take effect */
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
     <div class="container">
         <a class="navbar-brand" href="#!">Online Cinema</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>

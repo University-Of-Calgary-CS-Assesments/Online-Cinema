@@ -29,15 +29,13 @@ class ControllerCheckout extends Controller
 
 
         if (!session()->has('seat'))
-            session()->put('seat', $seat);
-        if (!session()->has('theater'))
-            session()->put('theater', $theater);
-        if (!session()->has('showTime'))
-            session()->put('showTime', $showTime);
-        if (!session()->has('movie'))
-            session()->put('movie', $movie);
-        if (!session()->has('price'))
-            session()->put('price', $movie->price);
+            session()->put('checkout', [
+                'seat' => $seat,
+                'theater' => $theater,
+                'showTime' => $showTime,
+                'movie' => $movie,
+                'price' => $movie->price
+            ]);
 
         return view('checkout');
     }
@@ -47,33 +45,33 @@ class ControllerCheckout extends Controller
     }
 
     public function cancel(){
-        session_destroy();
+        session()->forget('checkout');
         return redirect()->route('movie.search.page');
     }
 
     public function payment(){
         // check payment information
 
-        if (session()->has('seat') && session()->has('theater') && session()->has('showTime') && session()->has('movie') && session()->has('price')){
+        if (session()->has('checkout')){
             $ticket = new Ticket();
             $ticket->ticketId = mt_rand(10000000, 99999999);
             $ticket->customer_id = Auth::user()->id;
-            $ticket->movie_id = session('movie')->id;
-            $ticket->show_time_id = session('showTime')->id;
-            $ticket->seat_id = session('seat')->id;
+            $ticket->movie_id = session('checkout')['movie']->id;
+            $ticket->show_time_id = session('checkout')['showTime']->id;
+            $ticket->seat_id = session('checkout')['seat']->id;
             $ticket->purchaseTime = Carbon::now()->timestamp;
-            $ticket->price = session('price');
+            $ticket->price = session('checkout')['price'];
             $ticket->assignedEmail = Auth::user()->email;
             $ticket->status = 'purchased';
 
             $ticket->save();
 
             $reservation = new Reservation();
-            $reservation->show_time_id = session('showTime')->id;
-            $reservation->seat_id = session('seat')->id;
+            $reservation->show_time_id = session('checkout')['showTime']->id;
+            $reservation->seat_id = session('checkout')['seat']->id;
             $reservation->save();
 
-            Mail::to(Auth::user()->email)->send(new TicketEmail());
+//            @Mail::to(Auth::user()->email)->send(new TicketEmail());
 
             return redirect()->route('ticket.success.page');
 
@@ -93,12 +91,12 @@ class ControllerCheckout extends Controller
                 $coupon->markAsUsed();
                 $coupon->save();
                 // Apply coupon discount to order
-                $price = session('price');
+                $price = session('checkout')['price'];
                 $price = $price - $coupon->amount;
 
                 if ($price < 0)
                     $price = 0;
-                session()->put('price', $price);
+                session()->put('checkout.price', $price);
                 // Redirect back to checkout page with success message
                 return redirect()->route('checkout.page')->withInput()->with('success', 'Coupon code applied successfully.');
             } else {

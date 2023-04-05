@@ -43,12 +43,12 @@
                             <div class="flex justify-between items-center mt-6 pt-6">
                                 <div class="flex  items-center">
                                     <div class="flex flex-col ml-3">
-                                        <span class="md:text-md font-medium"><b>Movie: </b>{{session('movie')->title}}</span>
-                                        <span class="md:text-md font-medium"><b>Theater: </b>{{session('theater')->name}}</span>
-                                        <span class="md:text-md font-medium"><b>Address: </b>{{session('theater')->address}}</span>
-                                        <span class="md:text-md font-medium"><b>Show Time: </b>{{\Carbon\Carbon::createFromTimestamp(session('showTime')->showTime)->format('Y-M-d H:i A')}}</span>
-                                        <span class="md:text-md font-medium"><b>Seat Number: </b>{{session('seat')->seatId}}</span>
-                                        <span class="md:text-md font-medium"><b>Price: </b>${{session('price')}}</span>
+                                        <span class="md:text-md font-medium"><b>Movie: </b>{{session('checkout')['movie']->title}}</span>
+                                        <span class="md:text-md font-medium"><b>Theater: </b>{{session('checkout')['theater']->name}}</span>
+                                        <span class="md:text-md font-medium"><b>Address: </b>{{session('checkout')['theater']->address}}</span>
+                                        <span class="md:text-md font-medium"><b>Show Time: </b>{{\Carbon\Carbon::createFromTimestamp(session('checkout')['showTime']->showTime)->format('Y-M-d H:i A')}}</span>
+                                        <span class="md:text-md font-medium"><b>Seat Number: </b>{{session('checkout')['seat']->seatId}}</span>
+                                        <span class="md:text-md font-medium"><b>Price: </b>${{session('checkout')['price']}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -71,13 +71,13 @@
                                 </div>
                                 <div class="flex justify-center items-end">
                                     <span class="text-sm font-medium text-gray-400 mr-1">Subtotal:</span>
-                                    <span class="text-lg font-bold text-gray-800 "> ${{session('price')}}</span>
+                                    <span class="text-lg font-bold text-gray-800 "> ${{session('checkout')['price']}}</span>
                                 </div>
                             </div>
                         </div>
 
 
-                        payment
+{{--                        payment--}}
                         <div class=" p-5 bg-gray-800 rounded overflow-visible">
                             <span class="text-xl font-medium text-gray-100 block pb-3">Card Details</span>
                             <span class="text-xs text-gray-400 ">Card Type</span>

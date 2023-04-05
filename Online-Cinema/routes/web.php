@@ -32,7 +32,7 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('home');
-});
+})->name('home');
 
 
 Route::get('/movie-search', function () {
@@ -57,9 +57,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/ticket-page/{movieId}', [\App\Http\Controllers\ControllerTicket::class, 'schedulePage'])->name('ticket.selection.page');
 
-//    Route::match(['get', 'post'], '/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'checkOutPage'])->name('checkout.page');
-    Route::get('/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'showCheckoutPage'])->name('checkout.show');
-    Route::post('/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'checkOutPage'])->name('checkout.page');
+    Route::match(['get', 'post'], '/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'checkOutPage'])->name('checkout.page');
+//    Route::get('/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'showCheckoutPage'])->name('checkout.show');
+//    Route::post('/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'checkOutPage'])->name('checkout.page');
 
     Route::post('/coupon', [\App\Http\Controllers\ControllerCheckout::class, 'coupon'])->name('checkout.coupon');
 
