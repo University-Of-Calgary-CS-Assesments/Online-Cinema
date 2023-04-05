@@ -22,11 +22,16 @@ class ControllerCheckout extends Controller
         $movie = Movie::find($request['movie']);
 
 
-        session()->put('seat', $seat);
-        session()->put('theater', $theater);
-        session()->put('showTime', $showTime);
-        session()->put('movie', $movie);
-        session()->put('price', $movie->price);
+        if (!session()->has('seat'))
+            session()->put('seat', $seat);
+        if (!session()->has('theater'))
+            session()->put('theater', $theater);
+        if (!session()->has('showTime'))
+            session()->put('showTime', $showTime);
+        if (!session()->has('movie'))
+            session()->put('movie', $movie);
+        if (!session()->has('price'))
+            session()->put('price', $movie->price);
 
         return view('checkout');
     }
@@ -40,8 +45,8 @@ class ControllerCheckout extends Controller
     }
 
     public function coupon(Request $request){
-        $coupon = Cupon::where('uniqueId', $request['coupon'])->first();
 
+        $coupon = Cupon::where('uniqueId', $request['coupon'])->first();
         // Check if coupon exists and is not expired
         if ($coupon && !$coupon->isExpired()) {
             // Check if coupon has not been used
@@ -50,16 +55,21 @@ class ControllerCheckout extends Controller
                 $coupon->markAsUsed();
                 $coupon->save();
                 // Apply coupon discount to order
+                $price = session('price');
+                $price = $price - $coupon->amount;
+
+                if ($price < 0)
+                    $price = 0;
+                session()->put('price', $price);
                 // Redirect back to checkout page with success message
-                return redirect()->back()->with('message', 'Coupon code applied successfully.');
+                return redirect()->route('checkout.page')->withInput()->with('success', 'Coupon code applied successfully.');
             } else {
                 // Redirect back to checkout page with error message
-                return redirect()->back()->with('message', 'This coupon has already been used.');
+                return redirect()->route('checkout.page')->withInput()->with('success', 'This coupon has already been used.');
             }
         } else {
             // Redirect back to checkout page with error message
-            return redirect()->back()->with('message', 'Invalid coupon code. Please try again.');
+            return redirect()->route('checkout.page')->withInput()->with('success', 'Invalid coupon code. Please try again.');
         }
     }
-
 }

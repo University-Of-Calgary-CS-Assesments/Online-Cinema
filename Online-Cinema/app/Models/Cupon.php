@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +16,7 @@ class Cupon extends Model
 
     public function isExpired()
     {
-        return $this->expiryDate && $this->expiryDate->isPast();
+        return $this->expiryDate && Carbon::parse($this->expiryDate)->isPast();
     }
 
     public function isUsed()

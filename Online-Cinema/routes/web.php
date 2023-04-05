@@ -55,11 +55,18 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard.page');
 
-    Route::get('/ticket-page/{movieId}', [\App\Http\Controllers\ControllerTicket::class, 'page'])->name('ticket.selection.page');
+    Route::get('/ticket-page/{movieId}', [\App\Http\Controllers\ControllerTicket::class, 'schedulePage'])->name('ticket.selection.page');
 
-    Route::post('/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'checkOutPage'])->name('checkout.page');
+    Route::match(['get', 'post'], '/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'checkOutPage'])->name('checkout.page');
 
-    Route::post('/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'coupon'])->name('checkout.coupon');
+    Route::post('/coupon', [\App\Http\Controllers\ControllerCheckout::class, 'coupon'])->name('checkout.coupon');
+
+    Route::get('/checkout-cancel', [\App\Http\Controllers\ControllerCheckout::class, 'cancel'])->name('checkout.cancel');
+
+    Route::get('/ticket-success', [\App\Http\Controllers\ControllerTicket::class, 'ticketPurchasing'])->name('ticket.success.page');
+
+
+
 });
 
 //Route::get('/movie-page', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');

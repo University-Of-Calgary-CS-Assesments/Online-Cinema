@@ -23,7 +23,8 @@
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
-        } #</style>
+        }
+    </style>
 </head>
 <body className='snippet-body'>
 <div class="h-screen bg-gray-300">
@@ -54,6 +55,7 @@
 
                             <div class="flex justify-center flex-col pt-3">
                                 <form action="{{route('checkout.coupon')}}" method="post">
+                                    @csrf
                                     <label class="text-xs text-black-400 ">Coupon Number</label>
                                     <input type="number" class="focus:outline-none w-full h-6 bg-white-800 text-black placeholder-black-300 text-sm border-b border-black-600 py-4" placeholder="12345..." name="coupon">
                                     <button type="submit" class="h-12 w-full bg-yellow-500 rounded focus:outline-none text-white hover:bg-yellow-600">
@@ -141,7 +143,7 @@
 <script type='text/javascript' src='#'></script>
 <script type='text/javascript' src='#'></script>
 <script type='text/javascript' src='#'></script>
-<script type='text/javascript'>#</script>
+<script type='text/javascript'></script>
 <script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
     myLink.addEventListener('click', function(e) {
         e.preventDefault();
