@@ -10,6 +10,13 @@ class Cupon extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'uniqueId',
+        'expiryDate',
+         'amount',
+        'customer_id'
+    ];
+
     public function customer(){
         return $this->hasOne(Customer::class);
     }

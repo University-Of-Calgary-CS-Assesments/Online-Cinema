@@ -51,15 +51,26 @@ Route::get('/movie-page/{movieId}', [\App\Http\Controllers\ControllerMoviePage::
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard.page');
+    /*
+     * Dashboard
+     */
+    Route::get('/dashboard', [\App\Http\Controllers\ControllerCustomerDashboard::class, 'dashboardPage'])->name('dashboard.page');
+
+    Route::get('/dashboard-tickets', [\App\Http\Controllers\ControllerCustomerDashboard::class, 'dashboardTickets'])->name('dashboard.tickets.page');
+
+    Route::get('/dashboard-coupons', [\App\Http\Controllers\ControllerCustomerDashboard::class, 'dashboardCoupons'])->name('dashboard.coupons.page');
+
+    Route::get('/dashboard-info', [\App\Http\Controllers\ControllerCustomerDashboard::class, 'dashboardInfo'])->name('dashboard.info.page');
+
+    Route::get('/dashboard-favorite', [\App\Http\Controllers\ControllerCustomerDashboard::class, 'dashboardFavorite'])->name('dashboard.favorite.page');
+
+    /*
+     * Dashboard
+     */
 
     Route::get('/ticket-page/{movieId}', [\App\Http\Controllers\ControllerTicket::class, 'schedulePage'])->name('ticket.selection.page');
 
     Route::match(['get', 'post'], '/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'checkOutPage'])->name('checkout.page');
-//    Route::get('/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'showCheckoutPage'])->name('checkout.show');
-//    Route::post('/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'checkOutPage'])->name('checkout.page');
 
     Route::post('/coupon', [\App\Http\Controllers\ControllerCheckout::class, 'coupon'])->name('checkout.coupon');
 
@@ -68,6 +79,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/checkout-payment', [\App\Http\Controllers\ControllerCheckout::class, 'payment'])->name('checkout.payment');
 
     Route::get('/ticket-success', [\App\Http\Controllers\ControllerTicket::class, 'ticketSuccess'])->name('ticket.success.page');
+
+    Route::post('/ticket-cancellation', [\App\Http\Controllers\ControllerTicket::class, 'ticketCancellation'])->name('ticket.cancellation');
 
 });
 

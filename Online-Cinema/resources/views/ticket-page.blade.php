@@ -27,6 +27,7 @@
                 <x-ticket-schedual :movie="$movie" :schedule="$schedule">
 
                 </x-ticket-schedual>
+
             </div>
         </div>
     </div>

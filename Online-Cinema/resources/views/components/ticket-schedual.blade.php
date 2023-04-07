@@ -328,7 +328,6 @@
                                     </td>
                                 </form>
 
-
                                 </tr>
                                 @endforeach
 

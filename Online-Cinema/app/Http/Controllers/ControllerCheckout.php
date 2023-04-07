@@ -28,7 +28,7 @@ class ControllerCheckout extends Controller
         $movie = Movie::find($request['movie']);
 
 
-        if (!session()->has('seat'))
+        if (!session()->has('checkout'))
             session()->put('checkout', [
                 'seat' => $seat,
                 'theater' => $theater,
@@ -72,11 +72,12 @@ class ControllerCheckout extends Controller
             $reservation->save();
 
 //            @Mail::to(Auth::user()->email)->send(new TicketEmail());
-
+            toastr()->success("Confirmation email was sent!");
             return redirect()->route('ticket.success.page');
 
         } else{
-            return redirect()->route('home');
+            toastr()->error("Payment failed!");
+            return redirect()->back();
         }
     }
 
@@ -98,14 +99,17 @@ class ControllerCheckout extends Controller
                     $price = 0;
                 session()->put('checkout.price', $price);
                 // Redirect back to checkout page with success message
-                return redirect()->route('checkout.page')->withInput()->with('success', 'Coupon code applied successfully.');
+                toastr()->success("Coupon applied successfully!");
+                return redirect()->back();
             } else {
                 // Redirect back to checkout page with error message
-                return redirect()->route('checkout.page')->withInput()->with('success', 'This coupon has already been used.');
+                toastr()->warning("Coupon is already used!");
+                return redirect()->back();
             }
         } else {
             // Redirect back to checkout page with error message
-            return redirect()->route('checkout.page')->withInput()->with('success', 'Invalid coupon code. Please try again.');
+            toastr()->error("Invalid Coupon-ID, or the coupon is expired!");
+            return redirect()->back();
         }
     }
 }
