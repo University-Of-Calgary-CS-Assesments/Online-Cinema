@@ -15,10 +15,13 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Coupons
                 </a>
+
+                @if(session('subscriber') == true)
                 <a class="nav-link" href="{{route('dashboard.favorite.page')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Favorite Movies
                 </a>
+                @endif
                 <a class="nav-link" href="{{route('dashboard.info.page')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     User Info

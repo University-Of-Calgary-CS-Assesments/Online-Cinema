@@ -144,4 +144,10 @@ return [
         ]),
     ],
 
+
+    'actions' => [
+        'login' => \App\Actions\Fortify\CustomLoginAction::class,
+    ],
+
+
 ];

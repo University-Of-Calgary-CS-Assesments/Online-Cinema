@@ -12,6 +12,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="{{asset('css/styles2.css')}}" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <!-- Navigation-->
@@ -34,7 +39,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 offset-md-3">
-                    <form id="search-form" method="post" action="{{route('movies.search.action') }}">
+                    <form id="search-form" method="post" action="{{route('movie.search.page') }}">
                         @csrf
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="Search..." name="query" value="">
@@ -78,6 +83,7 @@
             @endif
         </div>
     </div>
+
 </section>
 <!-- Footer-->
 <x-footer>

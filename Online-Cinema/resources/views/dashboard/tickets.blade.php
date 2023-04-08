@@ -53,7 +53,9 @@
                                         </button>
                                     </form>
                                 @else
-                                    N/A
+                                    <button type="submit" class="btn btn-warning">
+                                        N/A
+                                    </button>
                                 @endif
                             </td>
                         </tr>

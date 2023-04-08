@@ -31,7 +31,11 @@
                             <td>{{$coupon->uniqueId}}</td>
                             <td>{{\Carbon\Carbon::createFromTimestamp($coupon->expiryDate)->format('Y d F')}}</td>
                             <td>${{$coupon->amount}}</td>
-                            <td >{{($coupon->used == 1 ? "Used" : "Valid")}}</td>
+                            <td >
+                                <button type="button" class="btn  {{($coupon->used == 1 ? "btn-danger" : "btn-success")}}">
+                                    {{($coupon->used == 1 ? "Used" : "Valid")}}
+                                </button>
+                            </td>
                         </tr>
                     @endforeach
 

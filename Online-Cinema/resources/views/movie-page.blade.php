@@ -44,12 +44,6 @@
                     </div>
                 </div>
                 <div class="d-flex">
-{{--                    <select class="form-select me-3" id="inputOption">--}}
-{{--                        <option selected>Select an option</option>--}}
-{{--                        <option value="option1">Option 1</option>--}}
-{{--                        <option value="option2">Option 2</option>--}}
-{{--                        <option value="option3">Option 3</option>--}}
-{{--                    </select>--}}
 
                     <a href="{{route('ticket.selection.page', ['movieId' => $movie->id])}}">
                         <button class="btn btn-outline-dark flex-shrink-0" type="button">
@@ -57,7 +51,17 @@
                             Get ticket
                         </button>
                     </a>
+
+                    @if(session('subscriber'))
+                    <a href="{{route('movie.add.favorite', ['movieId' => $movie->id])}}">
+                        <button class="btn btn-outline-dark flex-shrink-0 ms-2" type="button">
+                            <i class="bi-heart me-1"></i>
+                            Add to favorite
+                        </button>
+                    </a>
+                    @endif
                 </div>
+
             </div>
         </div>
     </div>

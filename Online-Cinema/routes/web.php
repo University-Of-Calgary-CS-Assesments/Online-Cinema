@@ -34,22 +34,20 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');
 
-
-Route::get('/movie-search', function () {
-    return view('movie-search');
-})->name('movie.search.page');
-
-Route::post('/movie-search', function (Request $request){
-    $query = $request->input('query');
-    $movies = \App\Models\Movie::where('title', 'like', '%'.$query.'%')->get();
-
-    return view('movie-search', compact('movies'));
-})->name('movies.search.action');
+Route::match(['get', 'post'],'/movie-search', [\App\Http\Controllers\ControllerMoviePage::class, 'searchPage'])->name('movie.search.page');
 
 Route::get('/movie-page/{movieId}', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');
 
 
 Route::middleware(['auth'])->group(function () {
+
+    /*
+     * Movie
+     */
+    Route::get('/movie-favorite/{movieId}', [\App\Http\Controllers\ControllerMoviePage::class, 'addFavorite'])->name('movie.add.favorite');
+
+    Route::get('/remove-favorite/{movieId}', [\App\Http\Controllers\ControllerMoviePage::class, 'removeFavorite'])->name('movie.remove.favorite');
+
 
     /*
      * Dashboard
@@ -62,10 +60,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard-info', [\App\Http\Controllers\ControllerCustomerDashboard::class, 'dashboardInfo'])->name('dashboard.info.page');
 
-    Route::get('/dashboard-favorite', [\App\Http\Controllers\ControllerCustomerDashboard::class, 'dashboardFavorite'])->name('dashboard.favorite.page');
+    Route::get('/dashboard-favorite', [\App\Http\Controllers\ControllerCustomerDashboard::class, 'dashboardFavoritePage'])->name('dashboard.favorite.page');
+
+    Route::get('/user-deletion', [\App\Http\Controllers\ControllerCustomerDashboard::class, 'userDeletion'])->name('user.deletion');
 
     /*
-     * Dashboard
+     *
      */
 
     Route::get('/ticket-page/{movieId}', [\App\Http\Controllers\ControllerTicket::class, 'schedulePage'])->name('ticket.selection.page');

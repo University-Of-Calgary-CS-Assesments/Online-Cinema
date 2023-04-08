@@ -1,5 +1,7 @@
 <x-dashboard.dashboard-page>
 
+
+
     @section('content')
         <table class="table">
             <thead>
@@ -27,7 +29,7 @@
                 <th scope="row">3</th>
                 <td>Larry</td>
                 <td>the Bird</td>
-                <td>@twitter</td>
+                <td>{{session('subscriber')}}</td>
             </tr>
             </tbody>
         </table>
