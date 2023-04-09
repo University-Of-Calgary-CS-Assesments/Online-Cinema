@@ -74,6 +74,15 @@ Route::middleware(['auth'])->group(function () {
      *
      */
 
+
+    /*
+     * Admin
+     */
+        // how to check the admin??
+    /*
+     *
+     */
+
     Route::get('/ticket-page/{movieId}', [\App\Http\Controllers\ControllerTicket::class, 'schedulePage'])->name('ticket.selection.page');
 
     Route::match(['get', 'post'], '/checkout', [\App\Http\Controllers\ControllerCheckout::class, 'checkOutPage'])->name('checkout.page');
