@@ -1,6 +1,6 @@
 <x-dashboard.dashboard-page>
 
-    @if(session('subscriber'))
+    @if(session()->has('subscriber'))
 
     @section('content')
         <div class="card mb-4">
@@ -68,14 +68,11 @@
             </div>
         </div>
     @endsection
-
     @else
-
         @php
             toastr()->error("You are not a subscriber, to access this page!");
             redirect()->route("dashboard.page");
         @endphp
-
     @endif
 </x-dashboard.dashboard-page>
 

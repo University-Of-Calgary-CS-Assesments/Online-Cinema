@@ -50,9 +50,8 @@
                             <i class="bi-cart-fill me-1"></i>
                             Get ticket
                         </button>
-                    </a>
 
-                    @if(session('subscriber'))
+                    @if(session()->has('subscriber'))
                     <a href="{{route('movie.add.favorite', ['movieId' => $movie->id])}}">
                         <button class="btn btn-outline-dark flex-shrink-0 ms-2" type="button">
                             <i class="bi-heart me-1"></i>

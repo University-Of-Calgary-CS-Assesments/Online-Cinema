@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cupon;
 use App\Models\Customer;
+use App\Models\Newsletter;
 use App\Models\Reservation;
 use App\Models\Subscriber;
 use App\Models\SubscriberFavoriteMovie;
@@ -21,13 +22,19 @@ class ControllerCustomerDashboard extends Controller
         Session::put('customer', $customer);
 
         if ($customer->is_subscriber) {
-            // Set the session variable if the condition is met
-            Session::put('subscriber', true);
-        } else{
-            Session::put('subscriber', false);
+            $subscriber = Subscriber::where('customer_id', $customer->id)->first();
+            if ( $subscriber && $subscriber->subscriptionEndDate < now()->timestamp){
+                $customer->is_subscriber = 0;
+                $customer->save();
+                $subscriber->delete();
+            } else{
+                Session::put('subscriber', $subscriber);
+            }
         }
 
-        return (view('dashboard.dashboard'));
+        $news = Newsletter::all();
+
+        return (view('dashboard.dashboard', compact('news')));
     }
 
     public function dashboardTickets(){
@@ -54,7 +61,7 @@ class ControllerCustomerDashboard extends Controller
     }
 
     public function dashboardFavoritePage(){
-        if (session('subscriber')){
+        if (session()->has('subscriber')){
 
             $favoriteMovies = SubscriberFavoriteMovie::with('movie')->where('subscriber_id', Auth::user()->id)->get();
 
@@ -74,6 +81,30 @@ class ControllerCustomerDashboard extends Controller
         Auth::user()->delete();
         toastr()->success("User was deleted successfully!");
         return redirect()->route('home');
+    }
+
+    public function subscriptionFee(){
+
+        if (!session('customer')->is_subscriber) {
+
+            Subscriber::create([
+                'customer_id' => session('customer')->id,
+                'subscriptionEndDate' => now()->timestamp + 365*24*60*60
+            ]);
+
+            $subscriber = Subscriber::where('customer_id', session('customer')->id)->first();
+            if ( $subscriber){
+                Session::put('subscriber', $subscriber);
+                toastr()->success("Subscription was renewed for another year successfully");
+            } else{
+                \session('customer')->is_subscriber = 0;
+                \session('customer')->save();
+                toastr()->error("Renewal process failed");
+            }
+        } else{
+            toastr()->warning('You are already a subscriber!');
+        }
+        return redirect()->route('dashboard.page');
     }
 
 }

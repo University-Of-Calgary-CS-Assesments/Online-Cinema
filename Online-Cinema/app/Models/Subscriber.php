@@ -9,6 +9,11 @@ class Subscriber extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'customer_id',
+        'subscriptionEndDate'
+    ];
+
 
     public function customer()
     {

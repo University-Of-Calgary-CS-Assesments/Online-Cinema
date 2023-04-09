@@ -44,7 +44,7 @@
                             <td>{{$ticket->status}}</td>
                             <td>${{$ticket->price}}</td>
                             <td>
-                                @if($ticket->status != 'cancelled')
+                                @if($ticket->status == 'purchased')
                                     <form action="{{route('ticket.cancellation')}}" method="post">
                                         @csrf
                                         <input type="hidden" name="ticket" value="{{$ticket->id}}">

@@ -33,7 +33,7 @@ class ControllerMoviePage extends Controller
 
     public function addFavorite($movieId){
         if (Auth::user()){
-            if (session('subscriber')){
+            if (session()->has('subscriber')){
                 SubscriberFavoriteMovie::create([
                     'subscriber_id' => Auth::user()->id,
                     'movie_id' => $movieId

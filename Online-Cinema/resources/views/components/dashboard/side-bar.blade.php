@@ -16,7 +16,7 @@
                     Coupons
                 </a>
 
-                @if(session('subscriber') == true)
+                @if(session()->has('subscriber'))
                 <a class="nav-link" href="{{route('dashboard.favorite.page')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Favorite Movies

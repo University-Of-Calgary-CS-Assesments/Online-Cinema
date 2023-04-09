@@ -64,6 +64,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/user-deletion', [\App\Http\Controllers\ControllerCustomerDashboard::class, 'userDeletion'])->name('user.deletion');
 
+    Route::get('/subscription-fee-payment', function (){
+        return view('payment');
+    })->name('subscription.fee.payment');
+
+    Route::get('/subscription-fee', [\App\Http\Controllers\ControllerCustomerDashboard::class, 'subscriptionFee'])->name('subscription.fee');
+
     /*
      *
      */
