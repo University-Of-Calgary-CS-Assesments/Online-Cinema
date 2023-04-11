@@ -13,13 +13,14 @@ class CustomLoginAction
 {
     public function __invoke()
     {
-        $subscriber = Subscriber::where('customer_id', Auth::user()->id)->first();
+        $user = Auth::user();
 
-        if ($subscriber) {
-            // Set the session variable if the condition is met
-            Session::put('subscriber', $subscriber);
-        } else{
-            Session::put('subscriber', 'sssssssssss');
+        if ($user->admin) {
+            // The user is an admin, set a session variable to indicate that
+            Session::put('is_admin', true);
+        } else {
+            // The user is not an admin, ensure the session variable is removed
+            Session::forget('is_admin');
         }
 
         return app(LoginResponseContract::class);

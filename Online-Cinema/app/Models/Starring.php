@@ -11,7 +11,10 @@ class Starring extends Model
 
     protected $table = 'starring';
 
-    protected $fillable = ['movie_id', 'name'];
+    protected $fillable = [
+        'movie_id',
+        'name'
+    ];
 
     public function movie(){
         return $this->belongsTo(Movie::class);

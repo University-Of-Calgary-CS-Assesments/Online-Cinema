@@ -27,6 +27,11 @@ class ControllerTicket extends Controller
 
         $pivotRecords = DB::table('theater_show_time')->where('movie_id', $movieId)->get();
 
+        if ($pivotRecords->count() == 0){
+            toastr()->warning('movie is not being scheduled yet!');
+            return redirect()->back();
+        }
+
         foreach ($pivotRecords as $record) {
             $theater = Theater::find($record->theater_id);
             $showTime = ShowTime::find($record->show_time_id);

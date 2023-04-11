@@ -79,6 +79,15 @@ Route::middleware(['auth'])->group(function () {
      * Admin
      */
         // how to check the admin??
+        Route::get('/admin-panel', [\App\Http\Controllers\ControllerAdmin::class, 'adminPanel'])->name('admin.panel');
+
+        Route::get('/admin-movieList', [\App\Http\Controllers\ControllerAdmin::class, 'movieList'])->name('admin.movieList');
+
+        Route::post('/admin-addMovie', [\App\Http\Controllers\ControllerAdmin::class, 'addMovie'])->name('admin.addMovie');
+
+    Route::post('/admin-deleteMovie', [\App\Http\Controllers\ControllerAdmin::class, 'deleteMovie'])->name('admin.deleteMovie');
+
+        Route::get('/admin-salesMon', [\App\Http\Controllers\ControllerAdmin::class, 'salesMon'])->name('admin.salesMon');
     /*
      *
      */
@@ -98,8 +107,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ticket-cancellation', [\App\Http\Controllers\ControllerTicket::class, 'ticketCancellation'])->name('ticket.cancellation');
 
 });
-
-//Route::get('/movie-page', [\App\Http\Controllers\ControllerMoviePage::class, 'page'])->name('movie.page.page');
 
 
 

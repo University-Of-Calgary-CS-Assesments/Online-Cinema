@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Cupon;
 use App\Models\Customer;
 use App\Models\Newsletter;
@@ -17,6 +18,15 @@ use Illuminate\Support\Facades\Session;
 class ControllerCustomerDashboard extends Controller
 {
     public function dashboardPage(){
+
+        $admin = Admin::where('user_id', Auth::user()->id);
+        if ($admin){
+            return redirect()->route('admin.panel');
+        }
+
+        if (session()->has('is_admin')){
+            die("saasdasdfasdf");
+        }
 
         $customer = Customer::where('user_id', Auth::user()->id)->first();
         Session::put('customer', $customer);

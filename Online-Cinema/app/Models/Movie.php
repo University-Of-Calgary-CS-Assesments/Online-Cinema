@@ -9,6 +9,19 @@ class Movie extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'releaseYear',
+        'startDate',
+        'endDate',
+        'director',
+        'writer',
+        'studio',
+        'price',
+        'rating',
+        'length'
+    ];
+
     public function starring(){
         return $this->hasMany(Starring::class);
     }
