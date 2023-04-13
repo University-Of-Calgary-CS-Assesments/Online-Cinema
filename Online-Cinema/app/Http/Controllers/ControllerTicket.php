@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CancelTicketEmail;
 use App\Mail\TicketEmail;
 use App\Models\Cupon;
 use App\Models\Movie;
@@ -69,13 +70,15 @@ class ControllerTicket extends Controller
 
             Reservation::where('show_time_id', $ticket->show_time_id)->where('seat_id', $ticket->seat_id)->delete();
 
+            $uniqueId = mt_rand(10000000, 99999999);
             Cupon::create([
-               'uniqueId' => mt_rand(10000000, 99999999),
+               'uniqueId' => $uniqueId,
                'expiryDate' => now()->timestamp + 365*24*60*60,
                 'amount' => $ticket->price,
                 'customer_id' => Auth::user()->id
             ]);
 
+//            @Mail::to(Auth::user()->email)->send(new CancelTicketEmail($uniqueId));
             toastr()->success("Ticket Cancelled successfully. You refunded with a coupon.");
 
         } else{

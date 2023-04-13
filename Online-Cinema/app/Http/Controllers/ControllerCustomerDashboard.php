@@ -20,7 +20,7 @@ class ControllerCustomerDashboard extends Controller
     public function dashboardPage(){
 
         $admin = Admin::where('user_id', Auth::user()->id);
-        if ($admin){
+        if ($admin->count() > 0){
             return redirect()->route('admin.panel');
         }
 

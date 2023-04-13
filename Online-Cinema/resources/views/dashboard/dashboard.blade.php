@@ -2,6 +2,8 @@
 
     @section('content')
 
+        @if(session()->has('subscriber'))
+
         <h2>News Table</h2>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
@@ -12,6 +14,8 @@
                     <th scope="col">Release Date</th>
                 </tr>
                 </thead>
+
+
                 <tbody>
                 @foreach($news as $new)
                     <tr>
@@ -23,6 +27,8 @@
                 </tbody>
             </table>
         </div>
+
+        @endif
     @endsection
 
 </x-dashboard.dashboard-page>

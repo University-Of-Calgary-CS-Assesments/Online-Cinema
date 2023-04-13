@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TicketEmail extends Mailable
+class CancelTicketEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,7 +30,6 @@ class TicketEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.ticketemail')
-            ->subject('Ticket Confirmation Email');
+        return $this->view('emails.cancelTicketEmail')->subject('Ticket Cancellation Email');
     }
 }

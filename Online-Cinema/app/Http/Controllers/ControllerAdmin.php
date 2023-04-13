@@ -13,7 +13,7 @@ class ControllerAdmin extends Controller
 {
     public function adminPanel(){
         $admin = Admin::where('user_id', Auth::user()->id);
-        if ($admin){
+        if ($admin->count() > 0){
             session()->put('is_admin', true);
         }
 

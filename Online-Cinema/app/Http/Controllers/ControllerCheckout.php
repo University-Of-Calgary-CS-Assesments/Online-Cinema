@@ -71,7 +71,16 @@ class ControllerCheckout extends Controller
             $reservation->seat_id = session('checkout')['seat']->id;
             $reservation->save();
 
-//            @Mail::to(Auth::user()->email)->send(new TicketEmail());
+            $data = [
+                'title' => session('checkout')['movie']->title,
+                'theater' => session('checkout')['theater']->name,
+                'address' => session('checkout')['theater']->address,
+                'showTime' => session('checkout')['showTime']->showTime,
+                'seat' => session('checkout')['seat']->seatId,
+                'price' => session('checkout')['price']
+            ];
+
+//            @Mail::to(Auth::user()->email)->send(new TicketEmail($data));
             toastr()->success("Confirmation email was sent!");
             return redirect()->route('ticket.success.page');
 
